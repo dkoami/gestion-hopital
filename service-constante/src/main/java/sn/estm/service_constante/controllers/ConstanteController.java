@@ -21,7 +21,7 @@ import sn.estm.service_constante.services.ConstanteService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/constant")
+@RequestMapping("/api/constante")
 public class ConstanteController {
 
 	private final ConstanteService constanteService;
@@ -48,6 +48,6 @@ public class ConstanteController {
 	@DeleteMapping("/{constid}")
 	public ResponseEntity<?> supprimerConsultation(@PathVariable Long constid) {
 		constanteService.suprimerConstante(constid);
-		return ResponseEntity.ok("consultation supprimé avec succès");
+		return ResponseEntity.ok("constante supprimé avec succès");
 	}
 }

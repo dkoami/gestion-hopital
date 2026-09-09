@@ -1,3 +1,19 @@
 spring:
   application:
     name: service-constante
+  datasource:
+    url: jdbc:mysql://localhost:3306/constantedb?createDatabaseIfNotExist=true
+    username: root
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      jakarta:
+        persistence:
+          validation:
+            mode: none
+            
+server:
+  port: 8886

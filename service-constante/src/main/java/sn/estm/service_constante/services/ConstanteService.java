@@ -82,7 +82,7 @@ public class ConstanteService {
 		constante.setPoids(constanteReq.getPoids());
 		constante.setTaille(constanteReq.getTaille());
 		constante.setTemp(constanteReq.getTemp());
-		constante.setTesion(constante.getTesion());
+		constante.setTesion(constanteReq.getTesion());
 		constante.setDateCr(LocalDateTime.now());
 		constante.setDateM(LocalDateTime.now());
 		
@@ -90,6 +90,7 @@ public class ConstanteService {
 
 	public ConstanteReponse transfertConstanteAconstanteResponse(Constante constante) {
 		ConstanteReponse constanteReponse = new ConstanteReponse();
+		constanteReponse.setConstid(constante.getConstid());
 		constanteReponse.setBid(constante.getBid());
 		constanteReponse.setPoids(constante.getPoids());
 		constanteReponse.setTaille(constante.getTaille());

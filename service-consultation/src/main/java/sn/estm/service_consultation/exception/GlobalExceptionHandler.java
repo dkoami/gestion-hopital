@@ -17,4 +17,13 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(Map.of("message", ex.getMessage()));
     }
+    
+    @ExceptionHandler(SejourDejaExistantException.class)
+    public ResponseEntity<Map<String, String>> handleSejourDejaExistant(
+            SejourDejaExistantException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("message", ex.getMessage()));
+    }
 }

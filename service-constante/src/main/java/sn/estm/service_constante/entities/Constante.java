@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Constante {
 	private UUID pid;
 	private Integer poids;
 	private Integer taille;
-	private Integer tesion;
+	private Integer tension;
 	private Integer temp;
 	private LocalDateTime dateCr;
 	private LocalDateTime dateM; 

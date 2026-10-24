@@ -13,6 +13,7 @@ import sn.estm.service_patient.dto.BonReponse;
 import sn.estm.service_patient.dto.BonRequete;
 import sn.estm.service_patient.entities.Bon;
 import sn.estm.service_patient.entities.Patient;
+import sn.estm.service_patient.entities.TypeConsultation;
 import sn.estm.service_patient.repositories.BonRepository;
 import sn.estm.service_patient.repositories.PatientRypository;
 
@@ -53,8 +54,8 @@ public class BonService {
         return listBon.stream().map(bon->TransfertBonABonResponse( bon))
         		                .collect(Collectors.toList());
     }
-    public Optional<BonReponse> miseAjourBon(Long id, BonRequete bonRequete) {
-    	 return bonRepo.findById(id)
+    public Optional<BonReponse> miseAjourBon(Long bid, BonRequete bonRequete) {
+    	 return bonRepo.findById(bid)
     	            .map(existeBon -> {
     	                Patient patient = patientRepo.findById(bonRequete.getPatient().getPid())
     	                        .orElseThrow(() -> new RuntimeException(
@@ -66,7 +67,9 @@ public class BonService {
     	            });
     }
 	 public void TransferBonRequeteAbon(Bon bon, BonRequete bonRequete,Patient patient) {
-	        bon.setPrix(bonRequete.getPrix());
+	        TypeConsultation type = bonRequete.getTypeconsultation();
+	        bon.setTypeConsultation(type);
+	        bon.setPrix(determinerPrix(type));
 	        bon.setNomPartiP(bonRequete.getNomPartiP());
 	        bon.setDesignation(bonRequete.getDesignation());
 	        bon.setDateCr(LocalDateTime.now());
@@ -80,8 +83,18 @@ public class BonService {
 		        bonReponse.setNomPartiP(bon.getNomPartiP());
 		        bonReponse.setDesignation(bon.getDesignation());
 		        bonReponse.setPatient(bon.getPatient());
+		        bonReponse.setTypeconsultation(bon.getTypeConsultation());
 		        bonReponse.setDateCr(bon.getDateCr());
 		        bonReponse.setDateM(bon.getDateM());
 		        return bonReponse;
 		    }
+	 private Double determinerPrix(TypeConsultation type) {
+
+		    return switch (type) {
+		        case GENERALE -> 3000.0;
+		        case SPECIALISTE -> 5000.0;
+		        case URGENCE -> 5000.0;
+		        case SUIVI -> 3000.0;
+		    };
+		}
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,16 @@ public class SejourController {
 		}
 		return ResponseEntity.ok(sejour);
 	}
+	@PatchMapping("/{sid}/terminer")
+    public ResponseEntity<SejourReponse> terminerSejour(@PathVariable Long sid) {
+		
+        return ResponseEntity.ok(sejourService.terminerSejour(sid));
+    }
+
+    @PatchMapping("/{sid}/annuler")
+    public ResponseEntity<SejourReponse> annulerSejour(@PathVariable Long sid) {
+        return ResponseEntity.ok(sejourService.annulerSejour(sid));
+    }
 	@DeleteMapping("/{sid}")
 	public ResponseEntity<?> supprimerPatient(@PathVariable Long sid) {
 		sejourService.suprimerSejour(sid);

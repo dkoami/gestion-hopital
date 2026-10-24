@@ -5,6 +5,8 @@ import java.util.UUID;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import sn.estm.service_consultation.clients.BonReponse;
 import sn.estm.service_consultation.clients.PatientReponse;
 
@@ -15,4 +17,6 @@ public interface PatientFeignClient {
      List<BonReponse> afficherListeBonPatient(@PathVariable UUID pid);
 	@GetMapping("/api/patient/{id}") 
     PatientReponse afficheUnPatient(@PathVariable("id") UUID id);
+    @GetMapping("/api/patient/recherche")
+    public List<PatientReponse> rechercherPatients(@RequestParam(name = "mc", defaultValue = "") String mc);
 }

@@ -56,7 +56,6 @@ public class RendezVousService {
         patientDetails.setPnom(patient.getPnom());
         patientDetails.setPrenom(patient.getPrenom());
 
-        // Correction : Utilisation de la surcharge prenant 'patientDetails' en paramètre
         return transfertRendezVouzArendezVousResponses(saveRendezVous, patientDetails);
     }
     
@@ -100,6 +99,16 @@ public class RendezVousService {
         if (statutActuel == StatutRendezVous.ANNULE) {
             throw new RuntimeException("Un rendez-vous annulé ne peut pas être réactivé ou terminé.");
         }
+    }
+    @Transactional
+    public List<RendezVousReponse> listerRendezVous() {
+        return rendezVousRepo.findAll().stream().map(rdv -> {
+            PatientReponse p = patientFeignClient.afficheUnPatient(rdv.getConsultation().getPid());
+            PatientDetails d = new PatientDetails();
+            d.setPnom(p.getPnom());
+            d.setPrenom(p.getPrenom());
+            return transfertRendezVouzArendezVousResponses(rdv, d);
+        }).toList();
     }
 
     public void transferRendezVousRequeteARendezVous(RendezVous rendezVous, RendezVousRequete rendezVousReq) {

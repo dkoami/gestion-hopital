@@ -1,10 +1,12 @@
 package sn.estm.service_consultation.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sn.estm.service_consultation.Enums.StatutSejour;
 import sn.estm.service_consultation.entities.Consultation;
 
 @AllArgsConstructor
@@ -12,9 +14,11 @@ import sn.estm.service_consultation.entities.Consultation;
 @Data
 public class SejourReponse {
 	private Long sid;
-	private LocalDateTime dateCr;
-	private LocalDateTime dateM;
+	private LocalDate dateCr;
+	private LocalDate dateM;
 	private Long cid;
+	private StatutSejour statut;
+	private LocalDate dateSortie;
 	PatientDetails patientDetails;
 	@Data
 	@AllArgsConstructor

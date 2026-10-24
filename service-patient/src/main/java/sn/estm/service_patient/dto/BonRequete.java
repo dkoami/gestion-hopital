@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import sn.estm.service_patient.entities.Patient;
+import sn.estm.service_patient.entities.TypeConsultation;
 
 @Data
 @AllArgsConstructor
@@ -17,12 +18,12 @@ public class BonRequete {
 
 	@NotNull(message = "Le prix est obligatoire")
 	@Positive(message = "Le prix doit être un nombre positif")
-	private Integer prix;
-	@NotBlank(message="le nom du parti prenant ne doit pa etre vide ")
+	private double prix;
 	private String nomPartiP;
 	@NotBlank(message="la designation ne doit pa etre vide ")
 	private String designation;
 	private Patient patient;
+	private TypeConsultation typeconsultation;
 	private LocalDateTime dateCr;
 	private LocalDateTime dateM;
 

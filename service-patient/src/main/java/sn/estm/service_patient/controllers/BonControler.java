@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import sn.estm.service_patient.services.BonService;
 @RestController
 @RequestMapping("/api/bon")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class BonControler {
 
 private final BonService bonService;
@@ -34,13 +36,13 @@ private final BonService bonService;
 				.status(HttpStatus.CREATED)
                 .body(reponse);
 	}
-	@PutMapping("/{id}")
-	public ResponseEntity< BonReponse> miseAjourPatient(@PathVariable Long id,@RequestBody BonRequete bonRequete) {
+	@PutMapping("/{bid}")
+	public ResponseEntity< BonReponse> miseAjourPatient(@PathVariable Long bid,@RequestBody BonRequete bonRequete) {
 		
-		return bonService.miseAjourBon(id, bonRequete)
+		return bonService.miseAjourBon(bid, bonRequete)
 				.map(patientReponse->ResponseEntity.ok(patientReponse))
 				.orElseThrow(() ->
-                new RuntimeException("Patient non trouvé : " + id));
+                new RuntimeException("Patient non trouvé : " + bid));
 	}
 	@GetMapping("/{id}")
 	public ResponseEntity<?> afficheUnBon(@PathVariable Long id){

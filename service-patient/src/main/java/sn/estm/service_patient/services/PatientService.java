@@ -63,6 +63,15 @@ public class PatientService {
 				.orElseThrow(()-> new RuntimeException("Patient non trouvé :" + id));
 		
 	}
+	public List<PatientReponse> rechercherPatients(String motCle) {
+	    if (motCle == null || motCle.trim().isEmpty()) {
+	        return listePatients(); // Si le mot-clé est vide, on renvoie tous les patients
+	    }
+	    
+	    return patientRepo.chercherParMotCle(motCle.trim()).stream()
+	            .map(this::TrasferPatientApatientReponse)
+	            .collect(Collectors.toList());
+	}
 	public void TransferPatientRequeteApatient( Patient patient,PatientRequete patientRequete) {
 	    patient.setPnom(patientRequete.getPnom());
 	    patient.setPrenom(patientRequete.getPrenom());

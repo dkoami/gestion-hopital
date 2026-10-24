@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import sn.estm.service_consultation.dto.MedicamentReponse;
 import sn.estm.service_consultation.dto.MedicamentRequete;
 import sn.estm.service_consultation.services.MedicamentService;
 
-@Controller
+@RestController
 @RequestMapping("/api/medicament")
 @RequiredArgsConstructor
 public class MedicamentController {
@@ -49,6 +50,10 @@ public class MedicamentController {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(reponseMed);
+	}
+	@GetMapping("/recherche")
+	public List<MedicamentReponse> rechercherMedicaments(@RequestParam("mc") String mc) {
+	    return medicamentService.rechercherMedicaments(mc);
 	}
 	@DeleteMapping("/{mid}")
 	public ResponseEntity<?> supprimerPatient(@PathVariable Long mid) {

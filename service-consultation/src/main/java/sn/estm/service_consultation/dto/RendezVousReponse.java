@@ -26,6 +26,7 @@ public class RendezVousReponse {
 		@NoArgsConstructor
 		public static class PatientDetails {
 			private String pnom;
-			private String prenom;		
+			private String prenom;	
+			private Integer num;
 	    }
 }

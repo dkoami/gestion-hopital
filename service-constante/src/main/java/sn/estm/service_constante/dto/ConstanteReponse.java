@@ -14,7 +14,7 @@ public class ConstanteReponse {
 	private Long bid;
 	private Integer poids;
 	private Integer taille;
-	private Integer tesion;
+	private Integer tension;
 	private Integer temp;
 	private LocalDateTime dateCr;
 	private LocalDateTime dateM; 

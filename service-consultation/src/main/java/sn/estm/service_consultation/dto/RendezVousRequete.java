@@ -14,7 +14,6 @@ import sn.estm.service_consultation.entities.Consultation;
 @NoArgsConstructor
 @Data
 public class RendezVousRequete {
-	 private Long rid;
 	 @NotBlank(message="veillez definir l'objet du rendez-vous")
 	 private String texte;
 	 

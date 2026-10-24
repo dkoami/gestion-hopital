@@ -24,7 +24,7 @@ public class ConstanteRequete {
 	
 	@NotNull(message = "La tension est obligatoire")
 	@Positive(message = "La tension doit être un nombre positif")
-	private Integer tesion;
+	private Integer tension;
 	
 	@NotNull(message = "La temperature est obligatoire")
 	@Positive(message = "La température doit être un nombre positif")

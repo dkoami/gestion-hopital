@@ -1,0 +1,101 @@
+<div class="container-fluid p-4">
+
+  <!-- En-tête et Bouton Nouveau -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-0">Consultations</h2>
+      <small class="text-muted">CHP / Microservice Consultation / Consultations</small>
+    </div>
+    <button class="btn btn-dark rounded-pill px-4" routerLink="/ajoutConsultation">
+      <i class="bi bi-plus-lg me-1"></i> Nouveau
+    </button>
+  </div>
+
+  <!-- Cartes statistiques du haut -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm p-3">
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-file-earmark-text text-primary fs-4 me-2"></i>
+        </div>
+        <h3 class="fw-bold mb-0">{{ totalConsultations }}</h3>
+        <span class="text-muted small">Consultations</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm p-3">
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-ticket-detailed text-success fs-4 me-2"></i>
+        </div>
+        <h3 class="fw-bold mb-0">{{ totalConsultations }}</h3>
+        <span class="text-muted small">Bons utilisés</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barre de recherche -->
+  <div class="mb-4">
+    <input type="text" class="form-control form-control-lg rounded-pill px-4 text-muted border"
+      placeholder="Rechercher une consultation..." [(ngModel)]="searchText" (ngModelChange)="rechercherConsultations()">
+  </div>
+
+  <!-- Liste des consultations (Cartes extensibles) -->
+  <!-- Liste des consultations (Cartes extensibles) -->
+  <div class="d-flex flex-column gap-3">
+    <div class="card border rounded-3 shadow-sm p-3 consultation-card" *ngFor="let item of consultations"
+      [class.border-primary]="item.expanded">
+
+      <!-- Ligne principale cliquable -->
+      <div class="d-flex justify-content-between align-items-start" (click)="toggleExpand(item)">
+        <div class="d-flex gap-3">
+          <div class="bg-light text-primary rounded p-2 d-flex align-items-center justify-content-center"
+            style="width: 42px; height: 42px;">
+            <i class="bi bi-file-text fs-5"></i>
+          </div>
+          <div>
+            <h5 class="fw-bold mb-1">Consultation N°{{ item.cid }}</h5>
+            <p class="text-muted small mb-1">
+              <span *ngIf="item.patientDetails">
+                {{ item.patientDetails.pnom }} {{ item.patientDetails.prenom }}
+              </span>
+              <span *ngIf="!item.patientDetails">Patient inconnu</span>
+              · {{ item.dateCr | date:'dd/MM/yyyy HH:mm' }}
+            </p>
+            <p class="mb-0 text-dark">{{ item.symp }}</p>
+          </div>
+        </div>
+        <button class="btn btn-link text-muted p-0">
+          <i class="bi" [class.bi-chevron-down]="!item.expanded" [class.bi-chevron-up]="item.expanded"></i>
+        </button>
+      </div>
+
+      <!-- Détails affichés si expanded est true -->
+      <div *ngIf="item.expanded" class="mt-3 pt-3 border-top">
+        <h6 class="fw-bold text-dark mb-2">Détails de la consultation</h6>
+        <p class="mb-1 text-muted small">Numéro matricule du patient : {{ item.patientDetails?.num }}</p>
+        <p class="mb-1 text-muted small">Bon Numéro utilisé : {{ item.bid }}</p>
+        <p class="mb-3 text-muted small">Diagnostic : {{ item.diagn }}</p>
+
+        <!-- Boutons d'actions -->
+        <div class="d-flex gap-2 flex-wrap">
+
+          <button class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+            [routerLink]="['/ajoutMedicament', item.pid]">
+            Ajouter médicament
+          </button>
+          <button class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+            [routerLink]="['/ajoutRendezVous', item.pid]">
+            Planifier RDV
+          </button>
+          <button class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+            [routerLink]="['/ajoutSejour', item.cid, item.pid]">
+             Planifier Sejour
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

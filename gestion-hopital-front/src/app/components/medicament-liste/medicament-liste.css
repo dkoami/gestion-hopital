@@ -1,0 +1,102 @@
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.medicine-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: #e8f0ff;
+  color: #0d6efd;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.dose-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: #f1f5f9;
+  color: #334155;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.search-box .form-control,
+.search-box .input-group-text {
+  min-height: 46px;
+}
+
+.search-box .form-control:focus {
+  box-shadow: none;
+  border-color: #dee2e6;
+}
+
+.table thead th {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.table tbody tr:hover:not(.details-row) {
+  background-color: #f8fafc;
+}
+
+.detail-button {
+  width: 34px;
+  height: 34px;
+}
+
+.details-row td {
+  background-color: #f8fafc;
+}
+
+.details-panel {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+.empty-icon {
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-size: 1.8rem;
+}
+
+.card {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .table {
+    min-width: 850px;
+  }
+
+  .card-header {
+    padding: 1rem !important;
+  }
+}

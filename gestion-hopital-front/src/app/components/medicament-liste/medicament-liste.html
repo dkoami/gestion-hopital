@@ -1,0 +1,247 @@
+<div class="container-fluid py-4">
+    <!-- En-tête -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="fa-solid fa-pills text-primary me-2"></i>
+                Gestion des médicaments
+            </h3>
+            <p class="text-muted mb-0">
+                Liste des médicaments prescrits aux patients.
+            </p>
+        </div>
+    </div>
+
+    <!-- Indicateurs -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex align-items-center gap-3">
+                    <div class="bg-primary-subtle text-primary rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px;">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Total des médicaments</p>
+                        <h4 class="fw-bold mb-0">{{ medicaments.length }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex align-items-center gap-3">
+                    <div class="bg-success-subtle text-success rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px;">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Patients concernés</p>
+                        <h4 class="fw-bold mb-0">{{ nombrePatients }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex align-items-center gap-3">
+                    <div class="bg-info-subtle text-info rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px;">
+                        <i class="fa-solid fa-notes-medical"></i>
+                    </div>
+                    <div>
+                        <p class="text-muted mb-1">Résultats affichés</p>
+                        <h4 class="fw-bold mb-0">{{ filteredMedicaments.length }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Liste -->
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <!-- Recherche -->
+        <div class="card-header bg-white border-0 p-4">
+            <div class="row align-items-center g-3">
+                <div class="col-12 col-lg-7">
+                    <div class="input-group search-box">
+                        <span class="input-group-text bg-light border-end-0">
+                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        </span>
+
+                        <input type="text" class="form-control bg-light border-start-0"
+                            placeholder="Rechercher par médicament, dose ou patient..."
+                            [(ngModel)]="searchText"
+                            (keyup.enter)="rechercherMedicaments()">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5 text-lg-end">
+                    <span class="text-muted small">
+                        {{ filteredMedicaments.length }} résultat(s)
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Erreur -->
+        <div *ngIf="errorMessage" class="alert alert-danger mx-4 mt-2">
+            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+            {{ errorMessage }}
+            <button type="button" class="btn btn-sm btn-outline-danger ms-2" (click)="actualiser()">
+                Réessayer
+            </button>
+        </div>
+
+        <!-- Chargement -->
+        <div *ngIf="loading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="text-muted mt-3 mb-0">Chargement des médicaments...</p>
+        </div>
+
+        <!-- Tableau -->
+        <div *ngIf="!loading" class="table-responsive">
+            <table class="table align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Médicament</th>
+                        <th>Patient</th>
+                        <th>Dose prescrite</th>
+                        <th>Date de création</th>
+                        <th class="text-center">Détails</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <ng-container *ngFor="let item of filteredMedicaments">
+
+                        <tr>
+                            <!-- Médicament -->
+                            <td class="ps-4">
+                                <div class="fw-semibold">
+                                    {{ item.medNom || 'Non renseigné' }}
+                                </div>
+                            </td>
+
+                            <!-- Patient -->
+                            <td>
+                                <div class="fw-medium">
+                                    {{ item.patientDetails?.pnom || 'Inconnu' }}
+                                    {{ item.patientDetails?.prenom || '' }}
+                                </div>
+                            </td>
+
+                            <!-- Dose -->
+                            <td>
+                                <span class="dose-badge">
+                                    {{ item.dose || 'Non renseignée' }}
+                                </span>
+                            </td>
+
+                            <!-- Date -->
+                            <td>
+                                <span class="text-muted small">
+                                    {{ formaterDate(item.dateCr) }}
+                                </span>
+                            </td>
+
+                            <!-- Détails -->
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-light border rounded-circle detail-button"
+                                    (click)="toggleExpand(item)" [attr.aria-expanded]="!!item.expanded"
+                                    [title]="item.expanded ? 'Masquer les détails' : 'Afficher les détails'">
+                                    <i class="fa-solid"
+                                        [ngClass]="item.expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Détails extensibles -->
+                        <tr *ngIf="item.expanded" class="details-row">
+                            <td colspan="5" class="p-4">
+                                <div class="details-panel">
+                                    <h6 class="fw-bold mb-3">
+                                        <i class="fa-solid fa-circle-info text-primary me-2"></i>
+                                        Détails du médicament
+                                    </h6>
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-4">
+                                            <small class="text-muted d-block mb-1">Patient</small>
+                                            <strong>
+                                                {{ item.patientDetails?.pnom || 'Inconnu' }}
+                                                {{ item.patientDetails?.prenom || '' }}
+                                            </strong>
+                                        </div>
+
+                                        <div class="col-12 col-md-4">
+                                            <small class="text-muted d-block mb-1">Médicament</small>
+                                            <strong>{{ item.medNom }}</strong>
+                                        </div>
+
+                                        <div class="col-12 col-md-4">
+                                            <small class="text-muted d-block mb-1">Dose</small>
+                                            <strong>{{ item.dose }}</strong>
+                                        </div>
+
+                                        <div class="col-12 col-md-4">
+                                            <small class="text-muted d-block mb-1">Dernière modification</small>
+                                            <strong>{{ formaterDate(item.dateM) }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </ng-container>
+
+                    <!-- Aucun résultat -->
+                    <tr *ngIf="filteredMedicaments.length === 0">
+                        <td colspan="5" class="text-center py-5">
+
+                            <div class="empty-icon mx-auto mb-3">
+                                <i class="fa-solid fa-capsules"></i>
+                            </div>
+
+                            <h6 class="fw-bold">Aucun médicament trouvé</h6>
+
+                            <p class="text-muted mb-3">
+                                {{
+                                    searchText
+                                    ? 'Aucun résultat ne correspond à votre recherche.'
+                                    : 'La liste des médicaments est actuellement vide.'
+                                }}
+                            </p>
+
+                            <button *ngIf="searchText" type="button"
+                                class="btn btn-outline-primary rounded-pill px-4"
+                                (click)="searchText = ''; rechercherMedicaments()">
+                                Effacer la recherche
+                            </button>
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pied de tableau -->
+        <div *ngIf="!loading && medicaments.length > 0" class="card-footer bg-white border-0 px-4 py-3">
+            <div class="d-flex flex-wrap justify-content-between gap-2">
+                <small class="text-muted">
+                    Total : {{ medicaments.length }} médicament(s)
+                </small>
+                <small class="text-muted">
+                    Recherche effectuée sur les données chargées
+                </small>
+            </div>
+        </div>
+
+    </div>
+</div>

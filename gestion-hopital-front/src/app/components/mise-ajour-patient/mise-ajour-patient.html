@@ -1,0 +1,70 @@
+<div class="container-fluid px-4">
+  <h1 class="mt-4">Modifier le patient</h1>
+  <p class="text-muted">Formulaire de modification</p>
+  <div class="card mb-4 border-0 shadow-sm">
+    <div class="card-body p-4">
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+        <!-- Première ligne : Nom, Prénom, Sexe -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="pnom" class="form-label text-secondary">Nom</label>
+            <input type="text" class="form-control" id="pnom" name="pnom"
+                   [(ngModel)]="patient.pnom" required>
+          </div>
+          <div class="col-md-4">
+            <label for="prenom" class="form-label text-secondary">Prénom</label>
+            <input type="text" class="form-control" id="prenom" name="prenom"
+                   [(ngModel)]="patient.prenom" required>
+          </div>
+          <div class="col-md-4">
+            <label for="sexe" class="form-label text-secondary">Sexe</label>
+            <select class="form-select" id="sexe" name="sexe"
+                    [(ngModel)]="patient.sexe" required>
+              <option value="M">Masculin</option>
+              <option value="F">Féminin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Deuxième ligne : Âge, Profession -->
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label for="age" class="form-label text-secondary">Âge</label>
+            <input type="number" class="form-control" id="age" name="age"
+                   [(ngModel)]="patient.age" required min="1">
+          </div>
+          <div class="col-md-4">
+            <label for="profession" class="form-label text-secondary">Profession</label>
+            <input type="text" class="form-control" id="profession" name="profession"
+                   [(ngModel)]="patient.profession" required>
+          </div>
+        </div>
+
+        <!-- Troisième ligne : Ville, Quartier -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-4">
+            <label for="ville" class="form-label text-secondary">Ville</label>
+            <input type="text" class="form-control" id="ville" name="ville"
+                   [(ngModel)]="patient.adresseDto.ville" required>
+          </div>
+          <div class="col-md-4">
+            <label for="quart" class="form-label text-secondary">Quartier</label>
+            <input type="text" class="form-control" id="quart" name="quart"
+                   [(ngModel)]="patient.adresseDto.quart" required>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary px-4" [disabled]="form.invalid" >
+            Enregistrer
+          </button>
+          <button type="button" class="btn btn-secondary px-4" (click)="goToDocDash()">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

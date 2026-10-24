@@ -1,0 +1,74 @@
+<div class="container-fluid px-4">
+  <p class="text-muted">Liste des bons</p>
+  <div class="card mb-4 border-0 shadow-sm">
+
+    <div class="card-header bg-light d-flex justify-content-between align-items-center py-3">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fas fa-scroll fs-5"></i>
+        <span class="fw-bold">Liste des bons</span>
+      </div>
+      <button type="button" class="btn btn-primary px-3" routerLink="/ajoutBon" routerLinkActive="active">
+        + Nouveau bon
+      </button>
+    </div>
+
+    <div class="card-body p-0">
+
+      @if (errorMessage) {
+        <div class="alert alert-danger m-3 d-flex justify-content-between align-items-center">
+          <span>{{ errorMessage }}</span>
+          <button type="button" class="btn btn-sm btn-outline-danger" (click)="chargerBons()">
+            Réessayer
+          </button>
+        </div>
+      }
+
+      <div class="table-responsive">
+        <table class="table table-striped align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col" class="ps-3">N°</th>
+              <th scope="col">Patient</th>
+              <th scope="col">Désignation</th>
+              <th scope="col">Partie prenante</th>
+              <th scope="col">Prix</th>
+              <th scope="col">Date</th>
+              <th scope="col" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (loading) {
+              <tr>
+                <td colspan="7" class="text-center text-muted py-4">Chargement...</td>
+              </tr>
+            } @else {
+              @for (bon of bons; track bon.bid) {
+                <tr>
+                  <td class="ps-3">{{ bon.bid }}</td>
+                  <td>{{ bon.patient?.prenom }} {{ bon.patient?.pnom }}</td>
+                  <td>{{ bon.designation }}</td>
+                  <td>{{ bon.nomPartiP || 'Aucune' }}</td>
+                  <td>{{ bon.prix | number }} FCFA</td>
+                  <td>{{ bon.dateCr | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-warning btn-sm text-white" title="Modifier"
+                            (click)="modifierBon(bon.bid)">
+                      <i class="fas fa-pencil-alt"></i> Modifier
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                @if (!errorMessage) {
+                  <tr>
+                    <td colspan="7" class="text-center text-muted py-4">Aucun bon trouvé.</td>
+                  </tr>
+                }
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

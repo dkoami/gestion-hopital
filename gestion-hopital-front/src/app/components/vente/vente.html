@@ -1,0 +1,244 @@
+<div class="container-fluid py-4 bg-light min-vh-100">
+  <div class="row g-4 justify-content-center">
+    
+    <!-- Section Gauche : Information Client + Produits + Table -->
+    <div class="col-lg-8">
+      <div class="vstack gap-4">
+
+        <!-- 1. Informations Client -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="card-title text-dark fw-semibold mb-3 d-flex align-items-center gap-2">
+              <i class="fa-solid fa-user text-primary"></i>
+              Informations du client <span class="text-muted fs-6 fw-normal">(optionnel)</span>
+            </h5>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label text-secondary small fw-medium">Client</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Rechercher un client...">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label text-secondary small fw-medium">Téléphone</label>
+                <input type="tel" class="form-control form-control-sm" placeholder="Ex : 90 12 34 56">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label text-secondary small fw-medium">Adresse</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Ex : Lomé, Togo">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Produits de la vente -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="card-title text-dark fw-semibold mb-3 d-flex align-items-center gap-2">
+              <i class="fa-solid fa-box text-primary"></i>
+              Produits de la vente
+            </h5>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Rechercher un produit par nom, code ou catégorie...">
+              <button class="btn btn-primary px-4 d-flex align-items-center gap-2" type="button">
+                <i class="fa-solid fa-magnifying-glass"></i> Rechercher
+              </button>
+            </div>
+
+            <!-- Aperçu du produit sélectionné -->
+            <div class="p-3 bg-light rounded border d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-white rounded border d-flex align-items-center justify-content-center text-muted fw-bold small" style="width: 48px; height: 48px;">IMG</div>
+                <div>
+                  <h6 class="mb-0 text-dark fw-bold">Paracétamol 500 mg</h6>
+                  <small class="text-muted">Médicament | Analgésique</small>
+                </div>
+              </div>
+              <div class="d-flex align-items-center gap-4">
+                <div class="text-end">
+                  <span class="d-block text-muted small">Prix unitaire</span>
+                  <span class="fw-bold text-dark">750 FCFA</span>
+                </div>
+                <div class="text-end">
+                  <span class="d-block text-muted small">Stock disponible</span>
+                  <span class="fw-bold text-dark">120</span>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm">+ Ajouter au panier</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Table des Articles -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="card-title text-dark fw-semibold mb-3 d-flex align-items-center gap-2">
+              <i class="fa-solid fa-cart-shopping text-primary"></i>
+              Articles de la vente
+            </h5>
+
+            <div class="table-responsive">
+              <table class="table align-middle text-start mb-3">
+                <thead class="table-light text-secondary small">
+                  <tr>
+                    <th class="py-3">#</th>
+                    <th class="py-3">Produit</th>
+                    <th class="py-3">Catégorie</th>
+                    <th class="py-3">Prix unitaire</th>
+                    <th class="py-3">Quantité</th>
+                    <th class="py-3">Remise</th>
+                    <th class="py-3">Total</th>
+                    <th class="py-3 text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="border-top-0">
+                  <!-- Ligne 1 -->
+                  <tr>
+                    <td class="text-secondary fw-medium">1</td>
+                    <td class="fw-bold text-dark">Paracétamol 500 mg<br><small class="text-muted fw-normal">P001</small></td>
+                    <td class="text-secondary">Médicaments</td>
+                    <td class="fw-medium text-dark">750 FCFA</td>
+                    <td><input type="number" value="2" class="form-control form-control-sm text-center" style="width: 70px;"></td>
+                    <td><input type="number" value="0" class="form-control form-control-sm text-center d-inline-block" style="width: 60px;"> %</td>
+                    <td class="fw-bold text-dark">1 500 FCFA</td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-link text-danger p-0"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Ligne 2 -->
+                  <tr>
+                    <td class="text-secondary fw-medium">2</td>
+                    <td class="fw-bold text-dark">Sérum physiologique<br><small class="text-muted fw-normal">P002</small></td>
+                    <td class="text-secondary">Accessoires</td>
+                    <td class="fw-medium text-dark">800 FCFA</td>
+                    <td><input type="number" value="1" class="form-control form-control-sm text-center" style="width: 70px;"></td>
+                    <td><input type="number" value="0" class="form-control form-control-sm text-center d-inline-block" style="width: 60px;"> %</td>
+                    <td class="fw-bold text-dark">800 FCFA</td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-link text-danger p-0"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Ligne 3 -->
+                  <tr>
+                    <td class="text-secondary fw-medium">3</td>
+                    <td class="fw-bold text-dark">Coton hydrophile<br><small class="text-muted fw-normal">P003</small></td>
+                    <td class="text-secondary">Accessoires</td>
+                    <td class="fw-medium text-dark">500 FCFA</td>
+                    <td><input type="number" value="1" class="form-control form-control-sm text-center" style="width: 70px;"></td>
+                    <td><input type="number" value="0" class="form-control form-control-sm text-center d-inline-block" style="width: 60px;"> %</td>
+                    <td class="fw-bold text-dark">500 FCFA</td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-link text-danger p-0"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Total Panier -->
+            <div class="p-3 bg-primary bg-opacity-10 rounded d-flex justify-content-between align-items-center text-primary fw-bold">
+              <span>Total (3 articles)</span>
+              <span class="fs-5">2 800 FCFA</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions du bas -->
+        <div class="d-flex justify-content-between align-items-center">
+          <button type="button" class="btn btn-secondary px-4">Vider le panier</button>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-secondary px-4">Annuler</button>
+            <button type="button" class="btn btn-primary px-4 shadow-sm">Enregistrer la vente</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section Droite : Détails du paiement -->
+    <div class="col-lg-4">
+      <div class="vstack gap-4">
+        
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h5 class="card-title text-dark fw-semibold mb-3 d-flex align-items-center gap-2">
+              <i class="fa-solid fa-file-invoice-dollar text-primary"></i>
+              Détails de la vente
+            </h5>
+
+            <div class="vstack gap-3">
+              <!-- Date et Heure -->
+              <div class="row g-2">
+                <div class="col-6">
+                  <label class="form-label text-secondary small fw-medium">Date</label>
+                  <input type="date" value="2026-09-06" class="form-control form-control-sm">
+                </div>
+                <div class="col-6">
+                  <label class="form-label text-secondary small fw-medium">Heure</label>
+                  <input type="time" value="18:25" class="form-control form-control-sm">
+                </div>
+              </div>
+
+              <!-- Mode de paiement -->
+              <div>
+                <label class="form-label text-secondary small fw-medium">Mode de paiement</label>
+                <select class="form-select form-select-sm">
+                  <option selected>Espèces</option>
+                  <option>Carte Bancaire</option>
+                  <option>Mobile Money</option>
+                </select>
+              </div>
+
+              <!-- Montant reçu -->
+              <div>
+                <label class="form-label text-secondary small fw-medium">Montant reçu</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" value="2800" class="form-control">
+                  <span class="input-group-text text-muted">FCFA</span>
+                </div>
+              </div>
+
+              <!-- Monnaie à rendre -->
+              <div class="p-3 bg-info bg-opacity-10 rounded border border-info border-opacity-25">
+                <span class="d-block text-info-emphasis small fw-medium">Monnaie à rendre</span>
+                <span class="fs-4 fw-bold text-info-emphasis">0 FCFA</span>
+              </div>
+
+              <!-- Remise globale -->
+              <div>
+                <label class="form-label text-secondary small fw-medium">Remise globale</label>
+                <div class="input-group input-group-sm">
+                  <input type="number" value="0" class="form-control">
+                  <span class="input-group-text text-muted">%</span>
+                </div>
+              </div>
+
+              <!-- Observation -->
+              <div>
+                <label class="form-label text-secondary small fw-medium">Observation (facultatif)</label>
+                <textarea rows="2" class="form-control form-control-sm" placeholder="Ex : Client fidèle..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informations d'état -->
+        <div class="p-3 bg-success bg-opacity-10 rounded border border-success border-opacity-25 d-flex align-items-start gap-3">
+          <i class="fa-solid fa-link text-success mt-1"></i>
+          <div class="small text-success-emphasis">
+            <strong>Cette vente est liée aux produits sélectionnés</strong>
+            <p class="mb-0 mt-1 text-success opacity-75">Les produits ajoutés ci-dessus sont automatiquement rattachés à cette vente.</p>
+          </div>
+        </div>
+
+        <div class="p-3 bg-light rounded border d-flex align-items-start gap-3">
+          <i class="fa-solid fa-circle-check text-primary mt-1"></i>
+          <div class="small text-secondary">
+            <strong>Stock mis à jour</strong>
+            <p class="mb-0 mt-1 text-muted">Le stock des produits vendus sera automatiquement déduit après l'enregistrement.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

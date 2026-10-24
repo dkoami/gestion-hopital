@@ -1,0 +1,11 @@
+/* Bootstrap 5.3 fournit l'essentiel : seuls quelques réglages restent ici. */
+:host{display:block;background:#fff;min-height:100%;
+  --bs-primary:#1b6aa8;--bs-primary-rgb:27,106,168}
+.logo{width:42px;height:42px}
+.grille{grid-template-columns:repeat(7,1fr)}
+.case{height:38px;font-size:14px}
+.point{width:5px;height:5px}
+.horaire{width:54px}
+.agenda .btn-primary{--bs-btn-bg:#1b6aa8;--bs-btn-border-color:#1b6aa8;--bs-btn-hover-bg:#165a90;--bs-btn-hover-border-color:#165a90;
+  --bs-btn-active-bg:#165a90;--bs-btn-active-border-color:#165a90}
+.agenda .btn-link{color:#1b6aa8}

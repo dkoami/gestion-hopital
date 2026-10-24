@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+/* La sidebar occupe 15rem dans le flux */
+app-sidebar {
+  display: block;
+  width: 15rem;
+  flex-shrink: 0;
+  transition: margin-left 0.15s ease-in-out;
+}
+
+/* On annule le transform du template, on utilise la marge à la place */
+app-sidebar #layoutSidenav_nav,
+app-sidebar .sb-sidenav {
+  transform: none !important;
+  position: static !important;
+  width: 100%;
+  height: 100%;
+}
+
+/* Écran large : sidebar visible par défaut, cachée quand toggled */
+body.sb-sidenav-toggled app-sidebar {
+  margin-left: -15rem;
+}
+
+/* Petit écran : sidebar cachée par défaut, visible quand toggled */
+@media (max-width: 991.98px) {
+  app-sidebar {
+    margin-left: -15rem;
+  }
+  body.sb-sidenav-toggled app-sidebar {
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,57 @@
+<div class="container-fluid py-3">
+  <div class="card shadow-sm border-0">
+
+    <div class="card-header bg-light py-3">
+      <h6 class="mb-0 fw-bold">
+        <i class="fas fa-notes-medical me-2"></i>Modifier la constante
+      </h6>
+    </div>
+
+    <div class="card-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Patient</label>
+            <input type="text" class="form-control" [value]="patientNom" disabled>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">N° du bon</label>
+            <input type="text" class="form-control" [value]="bid" disabled>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">Poids (kg)</label>
+            <input type="number" class="form-control" name="poids"
+                   [(ngModel)]="constante.poids" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Taille (cm)</label>
+            <input type="number" class="form-control" name="taille"
+                   [(ngModel)]="constante.taille" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Tension</label>
+            <input type="number" class="form-control" name="tension"
+                   [(ngModel)]="constante.tension" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Température (°C)</label>
+            <input type="number" class="form-control" name="temp"
+                   [(ngModel)]="constante.temp" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-warning text-white me-2" [disabled]="f.invalid">
+          <i class="fas fa-save me-1"></i>Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="retourListe()">
+          Annuler
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

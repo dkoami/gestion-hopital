@@ -1,0 +1,71 @@
+<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+  <div class="sb-sidenav-menu">
+    <div class="nav">
+      <div class="sb-sidenav-menu-heading text-white fw-bold fs-6 mx-2 py-2">GESTION D'HOPITAL</div>
+
+      <a class="nav-link" routerLink="/patient" routerLinkActive="active" (click)="fermerSidebar()">
+        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        Dashboard
+      </a>
+
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+        aria-expanded="false" aria-controls="collapseLayouts">
+        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+        gestion patient
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="collapseLayouts" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+          <a class="nav-link" routerLink="/patient" routerLinkActive="active" (click)="fermerSidebar()">
+            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+            patients
+          </a>
+          <a class="nav-link" routerLink="/bon" routerLinkActive="active" (click)="fermerSidebar()">
+            <div class="sb-nav-link-icon"><i class="fas fa-scroll"></i></div>
+            Bons
+          </a>
+        </nav>
+      </div>
+      <!-- ===== Gestion consultations ===== -->
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConsultations"
+        aria-expanded="false" aria-controls="collapseConsultations">
+        <div class="sb-nav-link-icon">
+          <i class="fas fa-stethoscope fs-5"></i>
+        </div>
+        Gestion consultations
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="collapseConsultations" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+          <a class="nav-link" routerLink="/constante" routerLinkActive="active" (click)="fermerSidebar()">
+            <div class="sb-nav-link-icon"><i class="fas fa-notes-medical"></i></div>
+            Constante
+          </a>
+          <a class="nav-link" routerLink="/principal" routerLinkActive="active" (click)="fermerSidebar()">
+            <div class="sb-nav-link-icon"><i class="fas fa-hospital-user fs-5"></i></div>
+            Consultation
+          </a>
+        </nav>
+      </div>
+
+      <!-- ===== Gestion de pharmacie ===== -->
+      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStock"
+        aria-expanded="false" aria-controls="collapseStock">
+        <div class="sb-nav-link-icon">
+          <i class="fas fa-pills fs-5"></i>
+        </div>
+        Gestion de pharmacie
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse" id="collapseStock" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+          <a class="nav-link" routerLink="/vente" routerLinkActive="active" (click)="fermerSidebar()">
+            <div class="sb-nav-link-icon"><i class="fas fa-cash-register"></i></div>
+            Vente
+          </a>
+          <!-- Ajoutez ici d'autres liens : stock, approvisionnement, etc. -->
+        </nav>
+      </div>
+    </div>
+  </div>
+</nav>

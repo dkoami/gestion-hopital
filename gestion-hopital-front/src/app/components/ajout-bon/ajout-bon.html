@@ -1,0 +1,154 @@
+<div class="container-fluid px-4">
+  <!-- Titre et Fil d'Ariane -->
+  <h1 class="mt-4">Nouveau bon de consultation</h1>
+  <p class="text-muted">Bons &rsaquo; Nouveau</p>
+  <div class="row g-4">
+    <!-- COLONNE GAUCHE : Formulaire principal -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <!-- En-tête de carte -->
+        <div class="card-header bg-light py-3">
+          <div class="d-flex align-items-center gap-2">
+            <i class="fas fa-scroll text-secondary fs-5"></i>
+            <span class="fw-bold">Informations du bon</span>
+          </div>
+        </div>
+        <div class="card-body p-4">
+          <form #bonForm="ngForm" (ngSubmit)="saveBon(bonForm)">
+            <!-- Champ : Recherche & Sélection Patient -->
+            <div class="mb-3">
+              <label class="form-label text-secondary small">Patient *</label>
+              <div class="input-group mb-2">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fas fa-search text-muted"></i>
+                </span>
+                <input 
+                  type="text" 
+                  class="form-control border-start-0 ps-0" 
+                  placeholder="Rechercher un patient par nom ou prénom..."
+                  [(ngModel)]="searchTerm"
+                  name="searchTerm"
+                >
+              </div>
+              <select 
+                class="form-select" 
+                [(ngModel)]="bonModel.pid" 
+                name="pid" 
+                required
+              >
+                <option value="" disabled selected>-- Choisir un patient --</option>
+                <option *ngFor="let p of patients" [value]="p.pid">
+                  {{ p.pnom }} {{ p.prenom }}
+                </option>
+              </select>
+            </div>
+            <!-- Champ : Type de consultation -->
+            <div class="mb-3">
+              <label class="form-label text-secondary small d-block">Type de consultation *</label>
+              <div class="d-flex flex-wrap gap-2">
+                <button 
+                  *ngFor="let type of typesConsultation"
+                  type="button" 
+                  class="btn rounded-pill px-3 py-1 btn-sm"
+                  [ngClass]="bonModel.typeConsultation === type ? 'btn-primary' : 'btn-outline-secondary'"
+                  (click)="selectType(type)"
+                >
+                  {{ type }}
+                </button>
+              </div>
+            </div>
+            <!-- Champ : Désignation -->
+            <div class="mb-3">
+              <label for="designation" class="form-label text-secondary small">Désignation *</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="designation" 
+                name="designation"
+                [(ngModel)]="bonModel.designation"
+                required
+              >
+            </div>
+            <!-- Ligne : Prix & Partie prenante -->
+            <div class="row g-3 mb-4">
+              <!-- Prix -->
+              <div class="col-md-6">
+                <label for="prix" class="form-label text-secondary small">Prix (FCFA) *</label>
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  id="prix" 
+                  name="prix"
+                  [(ngModel)]="bonModel.prix" 
+                  required
+                  min="0"
+                >
+              </div>
+              <!-- Partie prenante -->
+              <div class="col-md-6">
+                <label for="partiePrenante" class="form-label text-secondary small">Partie prenante</label>
+                <select 
+                  class="form-select" 
+                  id="partiePrenante" 
+                  name="nomPartiP"
+                  [(ngModel)]="bonModel.nomPartiP"
+                >
+                  <option *ngFor="let opt of optionsPartiePrenante" [value]="opt">
+                    {{ opt }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!-- Boutons d'action -->
+            <div class="d-flex gap-2">
+              <button 
+                type="submit" 
+                class="btn btn-success px-4" 
+                [disabled]="bonForm.invalid || !bonModel.pid"
+              >
+                Enregistrer le bon
+              </button>
+              <button type="button" class="btn btn-secondary px-4" routerLink="/bon">
+                Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- COLONNE DROITE : Panneau Récapitulatif dynamique -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-light py-3">
+          <span class="fw-bold">Récapitulatif</span>
+        </div>
+        <div class="card-body p-4">
+          <!-- Patient sélectionné -->
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-dashed">
+            <span class="text-secondary">Patient</span>
+            <span class="fw-medium">
+              {{ patientSelectionne ? (patientSelectionne.pnom + ' ' + patientSelectionne.prenom) : '&mdash;' }}
+            </span>
+          </div>
+          <!-- Type de consultation -->
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-dashed">
+            <span class="text-secondary">Type</span>
+            <span class="fw-medium">{{ bonModel.typeConsultation || '&mdash;' }}</span>
+          </div>
+          <!-- Partie prenante -->
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-dashed">
+            <span class="text-secondary">Partie prenante</span>
+            <span class="fw-medium">{{ bonModel.nomPartiP }}</span>
+          </div>
+          <!-- Prix total recalculé -->
+          <div class="d-flex justify-content-between align-items-center pt-3 mt-2">
+            <span class="fs-4 fw-bold text-dark">Prix</span>
+            <span class="fs-4 fw-bold text-success">
+              {{ (bonModel.prix || 0) | number:'1.0-0' }} FCFA
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

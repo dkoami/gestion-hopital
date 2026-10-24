@@ -1,0 +1,122 @@
+<div class="container-fluid py-4">
+  <!-- En-tête -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+    <div>
+      <h3 class="fw-bold mb-1">
+        <i class="bi bi-capsule-pill text-primary me-2"></i>
+        Ajouter un médicament
+      </h3>
+      <p class="text-muted mb-0">
+        Enregistrer un médicament pour une consultation médicale.
+      </p>
+    </div>
+    <a routerLink="/consultations" class="btn btn-outline-secondary rounded-pill px-4">
+      <i class="bi bi-arrow-left me-2"></i>
+      Retour
+    </a>
+  </div>
+  <!-- Informations du patient -->
+  <div class="card border-0 shadow-sm rounded-4 mb-4" *ngIf="patient() as p">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-center gap-3">
+        <div class="patient-avatar">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <div>
+          <h5 class="fw-bold mb-1">{{ p.pnom }} {{ p.prenom }}</h5>
+          <span class="text-muted small">Patient sélectionné</span>
+        </div>
+        <div class="ms-auto">
+          <span class="badge bg-success-subtle text-success px-3 py-2">
+            <i class="bi bi-check-circle me-1"></i>
+            Identifié
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Formulaire -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-9">
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-white p-4">
+          <h5 class="fw-bold mb-1">Informations du médicament</h5>
+          <p class="text-muted small mb-0">
+            Renseignez les informations de la prescription.
+          </p>
+        </div>
+        <div class="card-body p-4">
+          <form #medicamentForm="ngForm"
+                (ngSubmit)="ajouterMedicament(medicamentForm)"
+                novalidate>
+            <div class="row g-4">
+              <!-- Nom du médicament -->
+              <div class="col-md-6">
+                <label for="medNom" class="form-label fw-semibold">
+                  Nom du médicament <span class="text-danger">*</span>
+                </label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text bg-light">
+                    <i class="bi bi-capsule text-primary"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="medNom"
+                    name="medNom"
+                    class="form-control"
+                    placeholder="Ex. : Paracétamol"
+                    ngModel
+                    #medNom="ngModel"
+                    required
+                    maxlength="150"
+                    [class.is-invalid]="medNom.invalid && medNom.touched">
+                  <div class="invalid-feedback">
+                    Veuillez saisir le nom du médicament.
+                  </div>
+                </div>
+              </div>
+              <!-- Dose -->
+              <div class="col-md-6">
+                <label for="dose" class="form-label fw-semibold">
+                  Dose prescrite <span class="text-danger">*</span>
+                </label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text bg-light">
+                    <i class="bi bi-clipboard2-pulse text-primary"></i>
+                  </span>
+                  <input
+                    type="text"
+                    id="dose"
+                    name="dose"
+                    class="form-control"
+                    placeholder="Ex. : 500 mg"
+                    ngModel
+                    #dose="ngModel"
+                    required
+                    maxlength="150"
+                    [class.is-invalid]="dose.invalid && dose.touched">
+                  <div class="invalid-feedback">
+                    Veuillez saisir la dose prescrite.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Boutons -->
+            <div class="d-flex flex-wrap justify-content-end gap-2 mt-4 pt-3 border-top">
+              <a routerLink="/medicaments" class="btn btn-light border rounded-pill px-4">
+                Annuler
+              </a>
+              <button
+                type="submit"
+                class="btn btn-primary rounded-pill px-4"
+                [disabled]="medicamentForm.invalid">
+                <i class="bi bi-check2-circle me-2"></i>
+                Enregistrer le médicament
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

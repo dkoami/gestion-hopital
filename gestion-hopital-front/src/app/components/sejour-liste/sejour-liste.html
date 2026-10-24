@@ -1,0 +1,244 @@
+<div class="container-fluid py-4">
+
+    <!-- En-tête -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+            <h3 class="fw-bold mb-1 text-dark">
+                <i class="fa-solid fa-hospital-user text-primary me-2"></i>
+                Gestion des séjours
+            </h3>
+            <p class="text-muted mb-0">
+                Suivi des hospitalisations et des sorties des patients
+            </p>
+        </div>
+    </div>
+
+    <!-- Message d'erreur -->
+    @if (errorMessage) {
+    <div class="alert alert-danger d-flex align-items-center mb-4 shadow-sm">
+        <i class="fa-solid fa-circle-exclamation me-2"></i>
+        <span>{{ errorMessage }}</span>
+        <button type="button" class="btn btn-sm btn-outline-danger ms-auto" (click)="chargerSejours()">
+            Réessayer
+        </button>
+    </div>
+    }
+
+    <!-- Chargement -->
+    @if (loading) {
+    <div class="card border-0 shadow-sm">
+        <div class="card-body text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+            </div>
+            <p class="text-muted mt-3 mb-0">Chargement des séjours...</p>
+        </div>
+    </div>
+    } @else {
+
+    <!-- Cartes statistiques -->
+    <div class="row g-3 mb-4">
+        <!-- Total -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm border-start border-primary border-4 h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1 small text-uppercase fw-semibold">Total des séjours</p>
+                        <h3 class="fw-bold mb-0 text-primary">{{ sejours.length }}</h3>
+                    </div>
+                    <div class="fs-2 text-primary opacity-50">
+                        <i class="fa-solid fa-bed-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- En cours -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm border-start border-warning border-4 h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1 small text-uppercase fw-semibold">En cours</p>
+                        <h3 class="fw-bold mb-0 text-warning">{{ totalEnCours }}</h3>
+                    </div>
+                    <div class="fs-2 text-warning opacity-50">
+                        <i class="fa-solid fa-hospital"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminés -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm border-start border-success border-4 h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1 small text-uppercase fw-semibold">Terminés</p>
+                        <h3 class="fw-bold mb-0 text-success">{{ totalTermines }}</h3>
+                    </div>
+                    <div class="fs-2 text-success opacity-50">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Annulés -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm border-start border-danger border-4 h-100">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-muted mb-1 small text-uppercase fw-semibold">Annulés</p>
+                        <h3 class="fw-bold mb-0 text-danger">{{ totalAnnules }}</h3>
+                    </div>
+                    <div class="fs-2 text-danger opacity-50">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0 p-3 p-md-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <h5 class="fw-bold mb-1">Liste des hospitalisations</h5>
+                    <small class="text-muted">{{ sejoursFiltres.length }} résultat(s)</small>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <div class="input-group" style="width: 250px;">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fa-solid fa-magnifying-glass text-muted"></i>
+                        </span>
+                        <input type="search" class="form-control border-start-0" placeholder="Rechercher..."
+                            [value]="searchText" (input)="searchText = $any($event.target).value">
+                    </div>
+
+                    <select class="form-select" aria-label="Filtrer par statut" [value]="statutFiltre"
+                        (change)="statutFiltre = $any($event.target).value">
+                        <option value="TOUS">Tous les statuts</option>
+                        <option value="EN_COURS">En cours</option>
+                        <option value="TERMINE">Terminé</option>
+                        <option value="ANNULE">Annulé</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light text-uppercase fs-7">
+                    <tr>
+                        <th class="ps-4 py-3">Séjour</th>
+                        <th class="py-3">Patient</th>
+                        <th class="py-3">Consultation</th>
+                        <th class="py-3">Date d'entrée</th>
+                        <th class="py-3">Date de sortie</th>
+                        <th class="py-3">Statut</th>
+                        <th class="text-center pe-4 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (sejour of sejoursFiltres; track sejour.sid) {
+                    <tr>
+                        <td class="ps-4 fw-bold text-primary">
+                            #{{ sejour.sid }}
+                        </td>
+
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="bg-light text-secondary rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 35px; height: 35px;">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold text-dark">
+                                        {{ sejour.patientDetails?.pnom || 'Patient' }}
+                                        {{ sejour.patientDetails?.prenom || '' }}
+                                    </div>
+                                    <small class="text-muted">Dossier d'hospitalisation</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="text-secondary">
+                                <i class="fa-solid fa-file-medical text-primary me-1"></i>
+                                {{ sejour.cid ?? '—' }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ sejour.dateCr ? (sejour.dateCr | date:'dd/MM/yyyy') : '—' }}
+                        </td>
+
+                        <td>
+                            @if (sejour.dateSortie) {
+                            {{ sejour.dateSortie | date:'dd/MM/yyyy' }}
+                            } @else {
+                            <span class="text-muted">Non définie</span>
+                            }
+                        </td>
+
+                        <td>
+                            @switch (sejour.statut) {
+                            @case ('EN_COURS') {
+                            <span class="badge bg-warning text-dark px-2 py-1">En cours</span>
+                            }
+                            @case ('TERMINE') {
+                            <span class="badge bg-success px-2 py-1">Terminé</span>
+                            }
+                            @case ('ANNULE') {
+                            <span class="badge bg-danger px-2 py-1">Annulé</span>
+                            }
+                            @default {
+                            <span class="badge bg-secondary px-2 py-1">Non défini</span>
+                            }
+                            }
+                        </td>
+
+                        <td class="text-center pe-4">
+                            <div class="d-inline-flex gap-2">
+                                <button type="button" class="btn btn-sm btn-outline-primary" title="Voir les détails"
+                                    (click)="voirDetails(sejour.sid)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-success" title="Terminer le séjour"
+                                    [disabled]="actionEnCours() === sejour.sid" (click)="terminerSejour(sejour.sid)">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Annuler le séjour"
+                                    [disabled]="actionEnCours() === sejour.sid" (click)="annulerSejour(sejour.sid)">
+                                    <i class="fa-solid fa-ban"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    }
+
+                    @if (sejoursFiltres.length === 0 && !loading) {
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-bed-pulse fs-1 mb-2 d-block opacity-50"></i>
+                            <h6 class="fw-bold">Aucun séjour trouvé</h6>
+                            <p class="mb-0 small">Modifiez les critères de recherche ou les filtres.</p>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer bg-white border-0 p-3">
+            <small class="text-muted">
+                Affichage de {{ sejoursFiltres.length }} séjour(s) sur {{ sejours.length }}.
+            </small>
+        </div>
+    </div>
+
+    }
+
+</div>

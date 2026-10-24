@@ -1,0 +1,38 @@
+<div class="menu-principal-container p-4">
+  <!-- En-tête / Header CHP de Kougnoyou -->
+  <div class="card header-card border-0 text-white mb-4 shadow-sm" style="background-color: #0f3854;">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-center mb-2">
+        <div>
+          <h3 class="mb-0 fw-bold">CHP de Kougnoyou</h3>
+          <p class="mb-0 text-light opacity-75">Gestion des consultations médicales</p>
+        </div>
+      </div>
+      <div class="small text-light opacity-75 mt-3">
+        <i class="bi bi-check-circle me-1"></i> Espace médical 
+      </div>
+    </div>
+  </div>
+
+  <!-- Titre de la section -->
+  <h6 class="text-uppercase text-secondary fw-bold mb-3" style="letter-spacing: 1px;">
+    MENU PRINCIPAL
+  </h6>
+
+  <!-- Grille des cartes -->
+  <div class="row g-3">
+    <div class="col-md-6" *ngFor="let item of menuItems">
+      <div 
+        class="card menu-card h-100 p-3 border rounded-3 shadow-sm d-flex flex-row align-items-center justify-content-between"
+        [routerLink]="item.route">
+        
+        <div class="d-flex align-items-center">
+          <i class="bi {{ item.icon }} fs-4 me-3 text-primary"></i>
+          <span class="fw-semibold text-dark">{{ item.title }}</span>
+        </div>
+
+        <i *ngIf="item.active" class="bi bi-check-circle-fill text-primary"></i>
+      </div>
+    </div>
+  </div>
+</div>

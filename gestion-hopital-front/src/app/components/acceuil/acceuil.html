@@ -1,0 +1,16 @@
+<div class="layout-wrapper d-flex flex-column vh-100 w-100">
+  <!-- Navbar en haut -->
+  <app-navbar class="w-100"></app-navbar>
+
+  <!-- Section principale avec Sidebar à gauche et Contenu à droite -->
+  <div class="d-flex flex-grow-1 w-100 overflow-hidden">
+    <!-- Sidebar -->
+    <app-sidebar class="h-100 align-self-stretch"></app-sidebar>
+
+    <!-- Zone de contenu principale -->
+    <main class="flex-grow-1 p-4 overflow-auto">
+      
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

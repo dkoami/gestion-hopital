@@ -1,0 +1,117 @@
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="mb-0">
+        <i class="bi bi-heart-pulse text-success me-2"></i> Nouvelles constantes
+      </h3>
+      <span class="text-muted">Patient  : {{ patient?.pnom }} {{ patient?.prenom }}</span>
+    </div>
+
+    <form #constanteForm="ngForm" (ngSubmit)="saveConstante(constanteForm)" novalidate>
+      
+      <div class="row">
+        <!-- Poids -->
+        <div class="col-md-6 mb-3">
+          <label for="poids" class="form-label fw-bold">Poids</label>
+          <div class="input-group">
+            <input 
+              type="number" 
+              id="poids" 
+              name="poids" 
+              class="form-control" 
+              ngModel 
+              required 
+              min="1"
+              placeholder="Ex: 72"
+              #poids="ngModel">
+            <span class="input-group-text">kg</span>
+          </div>
+          <div *ngIf="poids.invalid && (poids.dirty || poids.touched)" class="text-danger small mt-1">
+            <span *ngIf="poids.errors?.['required']">Le poids est obligatoire.</span>
+            <span *ngIf="poids.errors?.['min']">Le poids doit être positif.</span>
+          </div>
+        </div>
+
+        <!-- Taille -->
+        <div class="col-md-6 mb-3">
+          <label for="taille" class="form-label fw-bold">Taille</label>
+          <div class="input-group">
+            <input 
+              type="number" 
+              id="taille" 
+              name="taille" 
+              class="form-control" 
+              ngModel 
+              required 
+              min="1"
+              placeholder="Ex: 165"
+              #taille="ngModel">
+            <span class="input-group-text">cm</span>
+          </div>
+          <div *ngIf="taille.invalid && (taille.dirty || taille.touched)" class="text-danger small mt-1">
+            <span *ngIf="taille.errors?.['required']">La taille est obligatoire.</span>
+            <span *ngIf="taille.errors?.['min']">La taille doit être positive.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Tension -->
+        <div class="col-md-6 mb-3">
+          <label for="tension" class="form-label fw-bold">Tension</label>
+          <div class="input-group">
+            <input 
+              type="number" 
+              id="tension" 
+              name="tension" 
+              class="form-control" 
+              ngModel 
+              required 
+              min="1"
+              placeholder="Ex: 12"
+              #tension="ngModel">
+            <span class="input-group-text">cmHg</span>
+          </div>
+          <div *ngIf="tension.invalid && (tension.dirty || tension.touched)" class="text-danger small mt-1">
+            <span *ngIf="tension.errors?.['required']">La tension est obligatoire.</span>
+            <span *ngIf="tension.errors?.['min']">La tension doit être positive.</span>
+          </div>
+        </div>
+
+        <!-- Température -->
+        <div class="col-md-6 mb-3">
+          <label for="temp" class="form-label fw-bold">Température</label>
+          <div class="input-group">
+            <input 
+              type="number" 
+              step="0.1" 
+              id="temp" 
+              name="temp" 
+              class="form-control" 
+              ngModel 
+              required 
+              min="1"
+              placeholder="Ex: 38.2"
+              #temp="ngModel">
+            <span class="input-group-text">°C</span>
+          </div>
+          <div *ngIf="temp.invalid && (temp.dirty || temp.touched)" class="text-danger small mt-1">
+            <span *ngIf="temp.errors?.['required']">La température est obligatoire.</span>
+            <span *ngIf="temp.errors?.['min']">La température doit être positive.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Boutons d'actions -->
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <button type="button" class="btn btn-outline-secondary px-4" routerLink="/patient">
+          Annuler
+        </button>
+        <button type="submit" class="btn btn-success px-4" [disabled]="constanteForm.invalid">
+          Enregistrer
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

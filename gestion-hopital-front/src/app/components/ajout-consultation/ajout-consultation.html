@@ -1,0 +1,61 @@
+<div class="container py-4" ngSkipHydration>
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      
+      <!-- Affichage des infos du patient si chargées -->
+      @if (patient) {
+        <div class="alert alert-info mb-4 shadow-sm">
+          <i class="fa-solid fa-user-injured me-2"></i> Patient : <strong>{{ patient.pnom }} {{ patient.prenom }}</strong>
+        </div>
+      }
+
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+          <h4 class="card-title fw-bold mb-4 d-flex align-items-center gap-2">
+            <i class="fa-solid fa-stethoscope text-primary"></i>
+            Ajouter une consultation
+          </h4>
+
+          <!-- Formulaire sans ngSkipHydration ici -->
+          <form #form="ngForm" (ngSubmit)="saveConsultation(form)">
+
+            <!-- Sélection du patient -->
+            <div class="mb-3">
+              <label for="pid" class="form-label text-secondary small fw-medium">Patient <span class="text-danger">*</span></label>
+              <select id="pid" name="pid" ngModel required class="form-select">
+                <option value="" disabled selected>-- Sélectionner un patient --</option>
+                @for (p of patients; track p.pid) {
+                  <option [value]="p.pid">{{ p.pnom || p.nom }} {{ p.prenom }}</option>
+                }
+              </select>
+            </div>
+            
+            <!-- Champ Symptômes -->
+            <div class="mb-3">
+              <label for="symp" class="form-label text-secondary small fw-medium">Symptômes <span class="text-danger">*</span></label>
+              <textarea id="symp" name="symp" ngModel required rows="3" class="form-control" placeholder="Décrivez les symptômes..."></textarea>
+            </div>
+
+            <!-- Champ Diagnostic -->
+            <div class="mb-3">
+              <label for="diagn" class="form-label text-secondary small fw-medium">Diagnostic <span class="text-danger">*</span></label>
+              <textarea id="diagn" name="diagn" ngModel required rows="3" class="form-control" placeholder="Entrez le diagnostic..."></textarea>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <a routerLink="/consultations" class="btn btn-outline-secondary px-4">
+                <i class="fa-solid fa-arrow-left me-1"></i> Annuler
+              </a>
+              <button type="submit" [disabled]="form.invalid" class="btn btn-primary px-4 shadow-sm">
+                <i class="fa-solid fa-floppy-disk me-1"></i> Enregistrer
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

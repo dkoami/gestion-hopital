@@ -1,0 +1,53 @@
+<div class="container py-4">
+  <h3 class="fw-bold mb-4">
+    <i class="bi bi-hospital me-2"></i>
+    Enregistrer un séjour
+  </h3>
+
+  <!-- Message de succès -->
+  <div *ngIf="messageSucces" class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    {{ messageSucces }}
+    <button type="button" class="btn-close" aria-label="Fermer" (click)="messageSucces = ''"></button>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="messageErreur" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    <strong>Attention !</strong>
+    {{ messageErreur }}
+    <button type="button" class="btn-close" aria-label="Fermer" (click)="messageErreur = ''"></button>
+  </div>
+
+  <!-- Informations du patient -->
+  <div class="alert alert-info" *ngIf="nomPatient || prenomPatient">
+    <strong>Patient concerné :</strong>
+    {{ prenomPatient }} {{ nomPatient }}
+  </div>
+
+  <form #sejourForm="ngForm" (ngSubmit)="ajouterSejour(sejourForm)">
+
+    <!-- Champ Statut -->
+    <div class="mb-3">
+      <label for="statut" class="form-label">Statut du séjour <span class="text-danger">*</span></label>
+      <select id="statut" name="statut" class="form-select" ngModel="EN_COURS" required #statut="ngModel">
+        <option value="EN_COURS">En cours</option>
+      </select>
+      <div *ngIf="statut.invalid && statut.touched" class="text-danger small mt-1">
+        Le statut est obligatoire.
+      </div>
+    </div>
+
+    <!-- Boutons d'action -->
+    <button type="submit" class="btn btn-primary" [disabled]="chargement">
+      <span *ngIf="chargement" class="spinner-border spinner-border-sm me-2">
+      </span>
+      {{ chargement ? 'Enregistrement...' : 'Enregistrer le séjour' }}
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary ms-2" routerLink= "/consultations">
+      Annuler
+    </button>
+
+  </form>
+</div>

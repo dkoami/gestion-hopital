@@ -1,0 +1,25 @@
+.header-card {
+  border-radius: 12px;
+}
+
+.menu-card {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #ffffff;
+}
+
+.menu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+}
+
+/* Style de l'élément sélectionné */
+.menu-card.selected {
+  background-color: #e8f4fc;
+  border-color: #9ec5fe !important;
+}
+.menu-card {
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
